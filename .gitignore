@@ -11,3 +11,4 @@ testing/results/
 caffePath.cfg
 models/
 testing/python/.*
+*.pyc

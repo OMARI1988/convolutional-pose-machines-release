@@ -2,19 +2,30 @@ import numpy as np
 from cStringIO import StringIO
 import PIL.Image
 from IPython.display import Image, display
+import cv2
 
-def showBGRimage(a, fmt='jpeg'):
+def showBGRimage(name, a, fmt='jpeg'):
+    # print a
     a = np.uint8(np.clip(a, 0, 255))
     a[:,:,[0,2]] = a[:,:,[2,0]] # for B,G,R order
-    f = StringIO()
-    PIL.Image.fromarray(a).save(f, fmt)
-    display(Image(data=f.getvalue()))
+    cv2.imshow(name,a)
+    cv2.waitKey(20)
+    cv2.imwrite('/home/omari/sk_cnn/images/'+name+'.'+fmt,a)
+    # print a
+    # f = StringIO()
+    # PIL.Image.fromarray(a).save(f, fmt)
+    # display(Image(data=f.getvalue()))
+    # print 'test'
 
-def showmap(a, fmt='png'):
+def showmap(name,a, fmt='png'):
     a = np.uint8(np.clip(a, 0, 255))
-    f = StringIO()
-    PIL.Image.fromarray(a).save(f, fmt)
-    display(Image(data=f.getvalue()))
+    cv2.imshow(name,a)
+    cv2.waitKey(20)
+    cv2.imwrite('/home/omari/sk_cnn/images/'+name+'.'+fmt,a)
+
+    # f = StringIO()
+    # PIL.Image.fromarray(a).save(f, fmt)
+    # display(Image(data=f.getvalue()))
 
 #def checkparam(param):
 #    octave = param['octave']
@@ -31,7 +42,7 @@ def getJetColor(v, vmin, vmax):
     if (v > vmax):
         v = vmax
     dv = vmax - vmin
-    if (v < (vmin + 0.125 * dv)): 
+    if (v < (vmin + 0.125 * dv)):
         c[0] = 256 * (0.5 + (v * 4)) #B: 0.5 ~ 1
     elif (v < (vmin + 0.375 * dv)):
         c[0] = 255
@@ -44,7 +55,7 @@ def getJetColor(v, vmin, vmax):
         c[1] = 256 * (-4 * v + 3.5)  #G: 1 ~ 0
         c[2] = 255
     else:
-        c[2] = 256 * (-4 * v + 4.5) #R: 1 ~ 0.5                      
+        c[2] = 256 * (-4 * v + 4.5) #R: 1 ~ 0.5
     return c
 
 def colorize(gray_img):
@@ -63,7 +74,7 @@ def padRightDownCorner(img):
     pad[1] = 0 # left
     pad[2] = 0 if (h%8==0) else 8 - (h % 8) # down
     pad[3] = 0 if (w*8==0) else 8 - (w % 8) # right
-    
+
     img_padded = img
     pad_up = np.tile(img_padded[0:1,:,:]*0 + 128, (pad[0], 1, 1))
     img_padded = np.concatenate((pad_up, img_padded), axis=0)
@@ -78,4 +89,3 @@ def padRightDownCorner(img):
 
 #if __name__ == "__main__":
 #    config_reader()
-

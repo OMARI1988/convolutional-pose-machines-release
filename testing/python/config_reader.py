@@ -1,8 +1,8 @@
 from configobj import ConfigObj
 import numpy as np
 
-
 def config_reader():
+    # print 'test'
     config = ConfigObj('config')
 
     param = config['param']
@@ -19,8 +19,10 @@ def config_reader():
     #param['octave'] = int(param['octave'])
     param['use_gpu'] = int(param['use_gpu'])
     param['GPUdeviceNumber'] = int(param['GPUdeviceNumber'])
-
+    print param.keys()
+    print model.keys()
     return param, model
 
 if __name__ == "__main__":
+    # print 'test'
     config_reader()
