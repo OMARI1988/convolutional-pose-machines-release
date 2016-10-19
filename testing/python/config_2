@@ -15,12 +15,12 @@ modelID = 1
 
 [[1]]
 caffemodel_person = '../../model/_trained_person_MPI/pose_iter_70000.caffemodel'
-deployFile_person = '../../model/_trained_person_MPI/pose_deploy_copy_4sg_resize.prototxt'
-caffemodel = '../../model/_trained_FLIC/pose_iter_40000.caffemodel'
+deployFile_person = '../../model/_trained_LEEDS_PC/pose_deploy_centerMap.prototxt'
+caffemodel = '../../model/_trained_LEEDS_PC/pose_iter_395000.caffemodel'
 deployFile = '../../model/_trained_FLIC/pose_deploy.prototxt'
-description = 'FLIC (upper body only) 4-stage CPM'
+description = 'LSP (PC) 6-stage CPM'
 boxsize = 368
-np = 9
+np = 14
 sigma = 21
 limbs = 1, 2, 3, 4, 4, 5, 6, 7, 7, 8, 9, 10, 10, 11, 12, 13, 13, 14
-part_str = [Lsho, Lelb, Lwri, Rsho, Relb, Rwri, Lhip, Rhip, head, bkg]
+part_str = [head, neck, Rsho, Relb, Rwri, Lsho, Lelb, Lwri, Rhip, Rkne, Rank, Lhip, Lkne, Lank, bkg]

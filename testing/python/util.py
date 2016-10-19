@@ -3,14 +3,15 @@ from cStringIO import StringIO
 import PIL.Image
 from IPython.display import Image, display
 import cv2
+import getpass
 
 def showBGRimage(name, a, fmt='jpeg'):
     # print a
     a = np.uint8(np.clip(a, 0, 255))
     a[:,:,[0,2]] = a[:,:,[2,0]] # for B,G,R order
     cv2.imshow(name,a)
-    cv2.waitKey(20)
-    cv2.imwrite('/home/omari/sk_cnn/images/'+name+'.'+fmt,a)
+    cv2.waitKey(1000)
+    cv2.imwrite('/home/'+getpass.getuser()+'/sk_cnn/convolutional-pose-machines-release/images/'+name+'.'+fmt,a)
     # print a
     # f = StringIO()
     # PIL.Image.fromarray(a).save(f, fmt)
