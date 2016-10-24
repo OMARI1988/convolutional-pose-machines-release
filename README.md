@@ -3,37 +3,54 @@ Shih-En Wei, Varun Ramakrishna, Takeo Kanade, Yaser Sheikh, "[Convolutional Pose
 
 This project is licensed under the terms of the GPL v2 license. By using the software, you are agreeing to the terms of the [license agreement](https://github.com/shihenw/convolutional-pose-machines-release/blob/master/LICENSE.md).
 
-Contact: shihenw@cmu.edu.
+Contact: Muhannad Alomari, scmara@leeds.ac.uk.
 
-## Before Everything
-- Watch some [videos](https://www.youtube.com/playlist?list=PLNh5A7HtLRcpsMfvyG0DED-Dr4zW5Lpcg).
-- Install [Caffe](http://caffe.berkeleyvision.org/). If you are interested in training this model on your own machines, consider using [our version](https://github.com/shihenw/caffe) with a data layer performing online augmentation. Make sure you have done `make matcaffe` and `make pycaffe`.
-- Copy `caffePath.cfg.example` to `caffePath.cfg` and set your own path in it.
+## Before everything, the installation process will take about an hour.
+- `mkdir ~/sk_cpm`
+- `cd ~/sk_cpm`
+- `git clone https://github.com/OMARI1988/convolutional-pose-machines-release.git`
+- `git clone https://github.com/OMARI1988/caffe.git`
 
-## Testing
+## Installing CUDA 8.0
+- download cuda 8.0 from https://developer.nvidia.com/cuda-downloads, make sure to choose linux, x86_64, Ubuntu, 14.04, deb(local)
+- `cd ~/wherever you installed cuda`
+- `sudo dpkg -i cuda-repo-ubuntu1404_8-0-local_8.0.44-1_amd64.deb`
+- `sudo apt-get update`
+- `sudo apt-get install cuda`
+- As part of the CUDA environment, you should add the following in the .bashrc file of your home folder.
+```
+export CUDA_HOME=/usr/local/cuda-8.0 
+export LD_LIBRARY_PATH=${CUDA_HOME}/lib64 
+PATH=${CUDA_HOME}/bin:${PATH} 
+export PATH
+```
 
-### Python
-This [demo file](https://github.com/shihenw/convolutional-pose-machines-release/blob/master/testing/python/demo.ipynb) shows how to detect multiple people's poses as we demonstrated in CVPR'16. For real-time performance, please read it for further explanation.
+## installing cudNN
+- you have to get cudNN (to-do, put the google drive link)
+- `sudo pip install protobuf`
+- `sudo pip install configobj`
+- `sudo pip install --upgrade IPython`
 
-### Matlab
-- Run `testing/get_model.sh` to retreive trained models from our web server.
-- 1. `CPM_demo.m`: Put the testing image into `sample_image` then run it! You can select models (we provided 4) or other parameters in `config.m`. If you just want to try our best-scoring model, leave them default.
-- 2. `CPM_benchmark.m`: Run the model on test benchmark and see the scores. Prediction files will be saved in `testing/predicts`.
+## Building caffe
+you have to get cudNN and sudo pip install protobuf and sudo pip install configobj and sudo pip install --upgrade IPython
 
+- `cd ~/sk_cmp/caffe`
+- `mkdir build`
+- `cd build`
+- `cmake ..`
+- `make all`
+- `make install`
+- `make runtest`
 
-## Training
-- Run `get_data.sh` to get datasets including [FLIC Dataset](http://vision.grasp.upenn.edu/cgi-bin/index.php?n=VideoLearning.FLIC), [LEEDS Sport Dataset](http://www.comp.leeds.ac.uk/mat4saj/lsp.html) and its [extended training set](http://www.comp.leeds.ac.uk/mat4saj/lspet.html), and [MPII Dataset](http://human-pose.mpi-inf.mpg.de/).
-- Run `genJSON(<dataset_name>)` to generate a json file in `training/json/` folder. Dataset name can be `MPI`, `LEEDS`, or `FLIC`. The json files contain raw informations needed for training from each individual dataset.
-- Run `python genLMDB.py` to generate LMDBs for CPM data layer in [our caffe](https://github.com/shihenw/caffe). Change the main function to select dataset, and note that you can generate a LMDB with multiple datasets.
-- Run `python genProto.py` to get prototxt for caffe. Read [further explanation](https://github.com/shihenw/caffe) for layer parameters.
-- Train with generated prototxts and collect caffemodels.
+## Pythonpath for cuda
+- add python path of caffe to bashrc
+- `export PYTHONPATH=$PYTHONPATH:"~/sk_cnn/caffe/python/"`
 
-## Citation
-Please cite CPM in your publications if it helps your research:
-
-    @inproceedings{wei2016cpm,
-        author = {Shih-En Wei and Varun Ramakrishna and Takeo Kanade and Yaser Sheikh},
-        booktitle = {CVPR},
-        title = {Convolutional pose machines},
-        year = {2016}
-    }
+## Testing ConvNet and Download models
+- `cd ~/sk_cpm/convolutional-pose-machines-release`
+- `chmod u+x get_data.sh`
+- `./get_data.sh`
+- `cd testing`
+- `./get_models.sh`
+- `cd python`
+- `python test.py`
