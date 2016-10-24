@@ -1,0 +1,26 @@
+[param]
+
+# CPU mode or GPU mode
+use_gpu = 1
+
+# GPU device number (doesn't matter for CPU mode)
+GPUdeviceNumber = 0
+
+# Select model (default: 1)
+modelID = 1
+
+
+[models]
+## don't edit this part
+
+[[1]]
+caffemodel_person = '../../model/_trained_person_MPI/pose_iter_70000.caffemodel'
+deployFile_person = '../../model/_trained_person_MPI/pose_deploy_copy_4sg_resize.prototxt'
+caffemodel = '../../model/_trained_FLIC/pose_iter_40000.caffemodel'
+deployFile = '../../model/_trained_FLIC/pose_deploy.prototxt'
+description = 'FLIC (upper body only) 4-stage CPM'
+boxsize = 368
+np = 9
+sigma = 21
+limbs = 1, 2, 3, 4, 4, 5, 6, 7, 7, 8, 9, 10, 10, 11, 12, 13, 13, 14
+part_str = [Lsho, Lelb, Lwri, Rsho, Relb, Rwri, Lhip, Rhip, head, bkg]
